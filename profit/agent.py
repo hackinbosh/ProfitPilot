@@ -36,6 +36,21 @@ class Agent:
 
     def setup_tools(self, external_tools):
         self.tools = [
+
+
+class Agent:
+    def __init__(self, ...):
+        ...
+        self.salesforce_username = "your_username"
+        self.salesforce_password = "your_password"
+        self.salesforce_security_token = "your_security_token"
+
+    def fetch_customers(self):
+        return get_salesforce_customers(self.salesforce_username, self.salesforce_password, self.salesforce_security_token)
+
+    def track_prospect(self, prospect_data):
+        track_prospect_in_salesforce(self.salesforce_username, self.salesforce_password, self.salesforce_security_token, prospect_data)
+
             WriteFileTool(root_dir=ROOT_DIR),
             ReadFileTool(root_dir=ROOT_DIR),
             process_csv,
