@@ -1,5 +1,33 @@
 import asyncio
 import os
+import requests
+from simple_salesforce import Salesforce
+
+
+# Salesforce Functions
+def get_salesforce_customers(username, password, security_token):
+    sf = Salesforce(username=username, password=password, security_token=security_token)
+    query = "SELECT Name, Email FROM Contact"
+    results = sf.query_all(query)
+    return results['records']
+
+def track_prospect_in_salesforce(username, password, security_token, prospect_data):
+    sf = Salesforce(username=username, password=password, security_token=security_token)
+    sf.Contact.create(prospect_data)
+
+# Zapier Functions
+ZAPIER_WEBHOOK_URL = os.environ.get('ZAPIER_WEBHOOK_URL', '')
+
+def get_customers_from_zapier():
+    response = requests.get(ZAPIER_WEBHOOK_URL)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
+def track_prospect_with_zapier(prospect_data):
+    response = requests.post(ZAPIER_WEBHOOK_URL, json=prospect_data)
+    return response.status_code == 200
 
 # Tools
 from contextlib import contextmanager
