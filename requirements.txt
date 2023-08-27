@@ -11,6 +11,7 @@ clarifai
 transformers
 torch
 pandas
+simple_salesforce==1.10.1
 
 
 torch
